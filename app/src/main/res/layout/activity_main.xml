@@ -4,81 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background_color">
 
-    <EditText
-        android:id="@+id/input"
+    <!-- Display Screen -->
+    <TextView
+        android:id="@+id/display"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="Enter number"
-        android:gravity="center"
-        android:textSize="24sp" />
+        android:layout_height="480dp"
+        android:background="@color/edit_text_background_color"
+        android:textColor="@color/text_color"
+        android:gravity="end|bottom"
+        android:textSize="48sp"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
 
+    <!-- Button Grid -->
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:rowCount="5"
         android:columnCount="4"
-        android:rowCount="5">
+        android:padding="4dp">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="+" />
+        <!-- Row 1 -->
+        <Button android:id="@+id/button_clear" android:text="C"/>
+        <Button android:id="@+id/button_modulo" android:text="%"/>
+        <Button android:id="@+id/button_divide" android:text="÷"/>
+        <Button android:id="@+id/button_delete" android:text="⌫"/>
 
-        <Button
-            android:id="@+id/button_subtract"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="-" />
+        <!-- Row 2 -->
+        <Button android:id="@+id/button_7" android:text="7"/>
+        <Button android:id="@+id/button_8" android:text="8"/>
+        <Button android:id="@+id/button_9" android:text="9"/>
+        <Button android:id="@+id/button_multiply" android:text="×"/>
 
-        <Button
-            android:id="@+id/button_multiply"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="*" />
+        <!-- Row 3 -->
+        <Button android:id="@+id/button_4" android:text="4"/>
+        <Button android:id="@+id/button_5" android:text="5"/>
+        <Button android:id="@+id/button_6" android:text="6"/>
+        <Button android:id="@+id/button_subtract" android:text="−"/>
 
-        <Button
-            android:id="@+id/button_divide"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="/" />
+        <!-- Row 4 -->
+        <Button android:id="@+id/button_1" android:text="1"/>
+        <Button android:id="@+id/button_2" android:text="2"/>
+        <Button android:id="@+id/button_3" android:text="3"/>
+        <Button android:id="@+id/button_add" android:text="+"/>
 
-        <Button
-            android:id="@+id/button_modulo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="%" />
-
-        <Button
-            android:id="@+id/button_power"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="^" />
-
-        <Button
-            android:id="@+id/button_root"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="√" />
-
-        <Button
-            android:id="@+id/button_factorial"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="!" />
-
-        <!-- Additional buttons for numbers and other operations can be added here -->
-
+        <!-- Row 5 -->
+        <Button android:id="@+id/button_root" android:text="√"/>
+        <Button android:id="@+id/button_0" android:text="0"/>
+        <Button android:id="@+id/button_decimal" android:text="."/>
+        <Button android:id="@+id/button_equals" android:text="="/>
     </GridLayout>
 
 </LinearLayout>
