@@ -24,7 +24,7 @@
             style="@style/TextAppearance.AppCompat.Display3"
             android:layout_weight="1"
             android:textColor="@color/white"
-            android:text="sample" />
+            android:text="" />
 
     </LinearLayout>
 
