@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -16,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private double currentValue = 0;
     private String currentOperation = "";
-    private boolean isNewInput = true; // To reset input after a result
+    private boolean isNewInput = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +51,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             switch (buttonText) {
                 case "+":
-                case "-":
                 case "*":
                 case "/":
                 case "^":
                     handleOperator(buttonText);
+                    break;
+                case "-":
+                    handleMinus();
                     break;
                 case "=":
                     calculateResult();
@@ -84,19 +84,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleOperator(String operator) {
-        if (!textView.getText().toString().isEmpty()) {
-            currentValue = Double.parseDouble(textView.getText().toString());
+        String currentText = textView.getText().toString();
+
+        if (!currentText.isEmpty() && !isOperator(currentText.charAt(currentText.length() - 1))) {
+            currentValue = Double.parseDouble(currentText);
             currentOperation = operator;
-            isNewInput = true;
+            textView.append(" " + operator + " ");
+            isNewInput = false;
+        }
+    }
+
+    private void handleMinus() {
+        String currentText = textView.getText().toString();
+
+        if (currentText.isEmpty()) {
+            // Allow "-" at the beginning (negative number)
+            textView.append("-");
+            isNewInput = false;
+        } else {
+            char lastChar = currentText.charAt(currentText.length() - 1);
+
+            if (isOperator(lastChar)) {
+                // Allow "-5" after an operator (e.g., "5 * -3")
+                textView.append(" -");
+            } else {
+                // Treat as subtraction
+                handleOperator("-");
+            }
         }
     }
 
     private void calculateResult() {
-        if (textView.getText().toString().isEmpty() || currentOperation.isEmpty()) {
+        String currentText = textView.getText().toString();
+
+        if (currentText.isEmpty() || currentOperation.isEmpty() || isOperator(currentText.charAt(currentText.length() - 1))) {
             return;
         }
 
-        double newValue = Double.parseDouble(textView.getText().toString());
+        String[] parts = currentText.split(" ");
+        if (parts.length < 3) return;
+
+        double newValue = Double.parseDouble(parts[2]);
         double result = 0;
 
         switch (currentOperation) {
@@ -111,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "/":
                 if (newValue == 0) {
-                    textView.setText("Error");
+                    textView.setText("Cannot divide by zero");
                     return;
                 }
                 result = currentValue / newValue;
@@ -121,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        // Check for overflow (if the result is too large)
         if (Double.isInfinite(result)) {
             textView.setText("Overflow");
         } else {
@@ -156,12 +183,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculateFactorial() {
-        if (textView.getText().toString().isEmpty()) {
+        String currentText = textView.getText().toString();
+
+        if (currentText.isEmpty() || isOperator(currentText.charAt(currentText.length() - 1))) {
             return;
         }
 
         try {
-            int value = Integer.parseInt(textView.getText().toString());
+            int value = Integer.parseInt(currentText);
             if (value < 0) {
                 textView.setText("Error");
                 return;
@@ -169,11 +198,11 @@ public class MainActivity extends AppCompatActivity {
 
             long factorial = 1;
             for (int i = 1; i <= value; i++) {
-                factorial *= i;
-                if (factorial > Long.MAX_VALUE) { // Prevent overflow
+                if (factorial > Long.MAX_VALUE / i) {
                     textView.setText("Overflow");
                     return;
                 }
+                factorial *= i;
             }
 
             textView.setText(String.valueOf(factorial));
@@ -184,11 +213,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculateSquareRoot() {
-        if (textView.getText().toString().isEmpty()) {
+        String currentText = textView.getText().toString();
+
+        if (currentText.isEmpty() || isOperator(currentText.charAt(currentText.length() - 1))) {
             return;
         }
 
-        double value = Double.parseDouble(textView.getText().toString());
+        double value = Double.parseDouble(currentText);
         if (value < 0) {
             textView.setText("Error");
             return;
@@ -196,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
 
         double result = Math.sqrt(value);
 
-        // Check for overflow
         if (Double.isInfinite(result)) {
             textView.setText("Overflow");
         } else {
@@ -204,5 +234,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         isNewInput = true;
+    }
+
+    private boolean isOperator(char c) {
+        return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
     }
 }
