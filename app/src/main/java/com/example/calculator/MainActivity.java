@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         int[] buttonIds = {
                 R.id.button_0, R.id.button_1, R.id.button_2, R.id.button_3, R.id.button_4,
                 R.id.button_5, R.id.button_6, R.id.button_7, R.id.button_8, R.id.button_9,
+                R.id.button_plus, R.id.button_minus, R.id.button_multiply, R.id.button_divide,
                 R.id.button_ac, R.id.button_equals, R.id.button_dot, R.id.button_factorial,
                 R.id.button_power, R.id.button_root
         };
@@ -48,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
     private void onButtonClick(View v) {
         Button button = (Button) v;
         String buttonText = button.getText().toString();
+
         try {
             switch (buttonText) {
                 case "+":
                 case "*":
                 case "/":
                 case "^":
+                case "√":
                     handleOperator(buttonText);
                     break;
                 case "-":
@@ -70,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "!":
                     calculateFactorial();
-                    break;
-                case "√":
-                    calculateSquareRoot();
                     break;
                 default:
                     handleNumberInput(buttonText);
@@ -150,6 +150,13 @@ public class MainActivity extends AppCompatActivity {
             case "^":
                 result = Math.pow(currentValue, newValue);
                 break;
+            case "√":
+                if (currentValue < 0) {
+                    textView.setText("Error");
+                    return;
+                }
+                result = Math.pow(currentValue, 1 / newValue);
+                break;
         }
 
         if (Double.isInfinite(result)) {
@@ -219,33 +226,8 @@ public class MainActivity extends AppCompatActivity {
         isNewInput = true;
     }
 
-    // Calculate the square root of the current number
-    private void calculateSquareRoot() {
-        String currentText = textView.getText().toString();
-
-        if (currentText.isEmpty() || isOperator(currentText.charAt(currentText.length() - 1))) {
-            return;
-        }
-
-        double value = Double.parseDouble(currentText);
-        if (value < 0) {
-            textView.setText("Error");
-            return;
-        }
-
-        double result = Math.sqrt(value);
-
-        if (Double.isInfinite(result)) {
-            textView.setText("Overflow");
-        } else {
-            textView.setText(String.valueOf(result));
-        }
-
-        isNewInput = true;
-    }
-
     // Check if a character is an operator
     private boolean isOperator(char c) {
-        return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
+        return c == '+' || c == '-' || c == '*' || c == '/' || c == '^' || c == '√';
     }
 }
