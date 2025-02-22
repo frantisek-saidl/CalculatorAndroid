@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
         initializeButtons();
     }
 
+    // Initialize buttons and set onclick listeners
     private void initializeButtons() {
         textView = findViewById(R.id.textView);
         int[] buttonIds = {
                 R.id.button_0, R.id.button_1, R.id.button_2, R.id.button_3, R.id.button_4,
                 R.id.button_5, R.id.button_6, R.id.button_7, R.id.button_8, R.id.button_9,
-                R.id.button_plus, R.id.button_minus, R.id.button_multiply, R.id.button_divide,
                 R.id.button_ac, R.id.button_equals, R.id.button_dot, R.id.button_factorial,
                 R.id.button_power, R.id.button_root
         };
@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Handle button onclick events
     private void onButtonClick(View v) {
         Button button = (Button) v;
         String buttonText = button.getText().toString();
-
         try {
             switch (buttonText) {
                 case "+":
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Handle operator input
     private void handleOperator(String operator) {
         String currentText = textView.getText().toString();
 
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Handle minus operator separately to allow negative numbers
     private void handleMinus() {
         String currentText = textView.getText().toString();
 
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Calculate the result based on the current operation
     private void calculateResult() {
         String currentText = textView.getText().toString();
 
@@ -159,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         isNewInput = true;
     }
 
+    // Reset the calculator to its initial state
     private void resetCalculator() {
         textView.setText("");
         currentValue = 0;
@@ -166,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         isNewInput = true;
     }
 
+    // Handle decimal point input
     private void handleDecimal() {
         String text = textView.getText().toString();
         if (!text.contains(".")) {
@@ -173,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Handle number input
     private void handleNumberInput(String number) {
         if (isNewInput) {
             textView.setText(number);
@@ -182,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Calculate the factorial of the current number
     private void calculateFactorial() {
         String currentText = textView.getText().toString();
 
@@ -212,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
         isNewInput = true;
     }
 
+    // Calculate the square root of the current number
     private void calculateSquareRoot() {
         String currentText = textView.getText().toString();
 
@@ -236,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         isNewInput = true;
     }
 
+    // Check if a character is an operator
     private boolean isOperator(char c) {
         return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
     }
