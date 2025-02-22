@@ -23,12 +23,20 @@
         <!-- TextView for the display -->
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Display3"
+            android:layout_width="592dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -382,23 +390,32 @@
             android:weightSum="5"
             android:layout_marginEnd="5dp">
 
-            <!-- Layout for the divide button -->
+            <!-- Layout for the modulo and divide buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="vertical"
+                android:layout_height="120dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_weight="1">
+                android:orientation="vertical">
+
+                <!-- Button for the modulo operation -->
+                <Button
+                    android:id="@+id/button_modulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/black"
+                    android:text="%" />
 
                 <!-- Button for the divide operation -->
                 <Button
                     android:id="@+id/button_divide"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     style="@style/TextAppearance.AppCompat.Display1"
-                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:text="/"
-                    tools:ignore="Hardcoded text"/>
+                    android:textColor="@color/black"
+                    tools:ignore="Hardcoded text" />
             </LinearLayout>
 
             <!-- Layout for the multiply button -->
